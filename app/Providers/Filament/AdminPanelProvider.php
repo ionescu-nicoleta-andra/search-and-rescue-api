@@ -31,6 +31,13 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+
+
+            ->brandLogo(fn () => view('filament.brand'))
+            ->brandLogoHeight('3rem')
+            ->brandName('Search & Rescue Admin Panel')
+            ->topNavigation(1)
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
