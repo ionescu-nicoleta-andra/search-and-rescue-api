@@ -20,6 +20,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Support\Icons\Heroicon;
 use BackedEnum;
+use Illuminate\Support\Facades\Hash;
 use UnitEnum;
 use Spatie\Permission\Models\Role;
 
@@ -55,6 +56,18 @@ class UserResource extends Resource
                     ->multiple()
                     ->relationship('roles', 'name') // connects to Spatie Role
                     ->preload(),
+
+                TextInput::make('password')
+                    ->label('Password')
+                    ->password()                 // hides input
+                    ->required(fn ($record) => ! $record) // required only on create
+                    ->minLength(8)
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state)),
+                TextInput::make('password_confirmation')
+                    ->label('Confirm Password')
+                    ->password()
+                    ->dehydrated(false) // don’t save to DB
+                    ->same('password') // validation must match password
             ]);
     }
 
@@ -74,6 +87,8 @@ class UserResource extends Resource
                     ->badge()
                     ->separator(', ')
                     ->sortable(),
+
+
             ])
             ->actions([
                 EditAction::make(),
