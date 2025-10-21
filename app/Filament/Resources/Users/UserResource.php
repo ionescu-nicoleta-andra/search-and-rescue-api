@@ -6,6 +6,7 @@ use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Models\User;
+use Filament\Actions\BulkAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -20,6 +21,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Support\Icons\Heroicon;
 use BackedEnum;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use UnitEnum;
 use Spatie\Permission\Models\Role;
@@ -96,6 +98,18 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
+
+                BulkAction::make('approve')
+                    ->label('Approve Users')
+                    ->action(function (Collection $records) {
+                        foreach ($records as $user) {
+                            $user->approved = true;
+                            $user->save();
+                        }
+                    })
+                    ->requiresConfirmation() // optional, show a "Are you sure?" dialog
+                    ->color('success') // nice green button
+                    ->icon('heroicon-o-check-circle'),
             ]);
     }
 
