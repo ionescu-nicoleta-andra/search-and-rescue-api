@@ -6,6 +6,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Tables;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
@@ -31,8 +32,9 @@ class RoleResource extends Resource
                 ->required()
                 ->unique(ignoreRecord: true),
 
-            MultiSelect::make('permissions')
+            Select::make('permissions')
                 ->label('Permissions')
+                ->multiple()
                 ->relationship('permissions', 'name')
                 ->preload(),
         ]);

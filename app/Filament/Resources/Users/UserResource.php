@@ -12,9 +12,11 @@ use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Support\Icons\Heroicon;
 use BackedEnum;
@@ -43,6 +45,11 @@ class UserResource extends Resource
                     ->email()
                     ->required(),
 
+                Toggle::make('approved')
+                    ->label('Approved')
+                    ->helperText('Only approved users can log in.')
+                    ->default(false),
+
                 Select::make('roles')
                     ->label('Roles')
                     ->multiple()
@@ -58,6 +65,10 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
+                IconColumn::make('approved')
+                    ->boolean()
+                    ->label('Approved')
+                    ->sortable(),
                 TextColumn::make('roles.name')
                     ->label('Roles')
                     ->badge()
