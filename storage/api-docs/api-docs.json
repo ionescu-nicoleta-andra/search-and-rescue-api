@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8080",
             "description": "Main API Server"
         }
     ],
@@ -40,12 +40,12 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "user@example.com"
+                                        "example": "admin@example.com"
                                     },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "password123"
+                                        "example": "password1234"
                                     }
                                 },
                                 "type": "object"
