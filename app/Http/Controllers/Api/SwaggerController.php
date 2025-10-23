@@ -23,6 +23,14 @@ use OpenApi\Annotations as OA;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Main API Server"
  * )
+ *
+ * @OA\SecurityScheme(
+ *       securityScheme="bearerAuth",
+ *       type="http",
+ *       scheme="bearer",
+ *       bearerFormat="JWT",
+ *       description="Enter your JWT token obtained from /api/login"
+ *  )
  */
 class SwaggerController extends Controller
 {
