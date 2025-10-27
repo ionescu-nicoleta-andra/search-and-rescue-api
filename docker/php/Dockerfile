@@ -25,8 +25,8 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy composer files & install dependencies (cache layer)
-COPY composer.json composer.lock /var/www/html/
-RUN composer install --no-dev --prefer-dist --no-scripts --no-interaction --optimize-autoloader
+COPY composer.json /var/www/html/
+RUN composer install  --prefer-dist --no-scripts --no-interaction --optimize-autoloader
 
 # Copy rest of app
 COPY . /var/www/html

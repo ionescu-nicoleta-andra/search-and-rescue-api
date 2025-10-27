@@ -82,6 +82,57 @@
                     }
                 }
             }
+        },
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get logged-in user's profile",
+                "description": "Returns the authenticated user's profile details using the JWT token.",
+                "operationId": "2db7593b14ead8d0d8ed011c747382f7",
+                "responses": {
+                    "200": {
+                        "description": "Successfully fetched profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Nicoleta Andra"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "nico@example.com"
+                                        },
+                                        "roles": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "admin"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -98,6 +149,10 @@
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
         }
     ]
 }
